@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <canvas id="myLineChart" width="600" height="400"></canvas>
+
+    <script>
+        var ctx = document.getElementById('myLineChart').getContext('2d');
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024'], // Years on the X-axis
+                datasets: [
+                    {
+                        label: 'Obtainments',
+                        data: [9119, 6224, 816], // Obtainments data points
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Fill color under the line
+                        borderColor: 'rgba(75, 192, 192, 1)', // Line color
+                        borderWidth: 2, // Line thickness
+                        fill: true, // Fill under the line
+                        yAxisID: 'y1' // Use the primary y-axis
+                    },
+                    {
+                        label: 'Win Rates (%)',
+                        data: [41.9, 24.25, 12.35], // Win rates data points
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)', // Fill color under the line
+                        borderColor: 'rgba(153, 102, 255, 1)', // Line color
+                        borderWidth: 2, // Line thickness
+                        fill: true, // Fill under the line
+                        yAxisID: 'y2' // Use the secondary y-axis
+                    }
+                ]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Arenaversary Badge Data', // Chart title
+                        font: {
+                            size: 16 // Font size for the title
+                        }
+                    }
+                },
+                scales: {
+                    y1: {
+                        beginAtZero: true, // Start the y-axis at 0
+                        position: 'left', // Position of the primary y-axis
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value; // No '%' sign for obtainments
+                            }
+                        }
+                    },
+                    y2: {
+                        beginAtZero: true, // Start the y-axis at 0
+                        position: 'right', // Position of the secondary y-axis
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + '%'; // Add '%' sign for win rates
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year' // X-axis title
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+<small> Data Note: Roblox displays the time and dates as Eastern Standard Time. When there are obtainments for multiple dates, which is the case for all years after 2022, the average win rate was calculated, and the sum of the obtainments were used. </small>
+<br>
+<small>
+Last Updated 13/8/2024  
+</small>
+</html>
